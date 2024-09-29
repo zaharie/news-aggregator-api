@@ -11,11 +11,6 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('tags', function (Blueprint $table) {
-            $table->id();
-            $table->string('name')->unique();
-            $table->timestamps();
-        });
         Schema::create('articles', function (Blueprint $table) {
             $table->id();
             $table->string('external_id')->unique(); 
@@ -23,14 +18,9 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->text('content')->nullable();
             $table->string('author')->nullable();
+            $table->text('category');
             $table->string('url')->unique();
             $table->timestamp('published_at');
-            $table->timestamps();
-        });
-        Schema::create('article_tag', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('article_id')->constrained()->onDelete('cascade');
-            $table->foreignId('tag_id')->constrained()->onDelete('cascade'); 
             $table->timestamps();
         });
     }
@@ -40,9 +30,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('tags');
+
         Schema::dropIfExists('articles');
-        Schema::dropIfExists('article_tag');
 
     }
 };

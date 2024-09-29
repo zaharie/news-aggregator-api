@@ -12,6 +12,9 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule): void
     {
+
+        $schedule->job(new \App\Jobs\FetchArticlesJob())->twiceDaily(6, 18);
+
         // $schedule->command('inspire')->hourly();
     }
 

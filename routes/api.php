@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\UserCategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,6 +24,12 @@ Route::middleware('auth:sanctum')->post('/logout', [AuthController::class, 'logo
 Route::post('/forgot-password', [AuthController::class, 'forgotPassword']);
 Route::post('/reset-password', [AuthController::class, 'resetPassword']);
 Route::get('/articles', [ArticleController::class, 'index']);
-Route::middleware('auth:sanctum')->get('/user', function (Request $request): mixed {
-    return $request->user();
+Route::get('/articles/{id}', [ArticleController::class, 'getOneById']);
+Route::middleware('auth:sanctum')->group(function () {
+    Route::get('/user', function (Request $request) {
+        return $request->user();
+    });
+    Route::post('/user/categories/add', [UserCategoryController::class, 'addCategory']);
+    Route::post('/user/categories/remove', [UserCategoryController::class, 'removeCategory']);
+    Route::get('/user/favorite-articles', [UserCategoryController::class, 'favoriteArticles']);
 });

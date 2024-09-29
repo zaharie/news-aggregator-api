@@ -22,7 +22,7 @@ class AuthController extends Controller
         if ($validator->fails()) {
             return response()->json([
                 'errors' => $validator->errors(),
-            ], 422);  // Retorna os erros de validação como JSON
+            ], 422);  
         }
     
         $user = User::create([
@@ -88,7 +88,7 @@ class AuthController extends Controller
         if ($validator->fails()) {
             return response()->json([
                 'errors' => $validator->errors(),
-            ], 422);  // Retorna erros de validação
+            ], 422);  
         }
 
         $status = Password::sendResetLink($request->only('email'));
